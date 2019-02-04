@@ -2,44 +2,114 @@
 <html>
 <head>
 <title>Civ5 Damage Calculator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: white;
-  text-align: left;
-  color: black;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+aside {
+  float: left;
+  width: 30%;
+  height: 350px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 3500x; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  aside, article {
+    width: 100%;
+    height: auto;
+  }
 }
 </style>
 </head>
 <body>
+<header>
+  <h2>Civ5 Damage Calculator</h2>
+</header>
 
-<h1>Civ5 Damage Calculator</h1>
-<p>select mode:<br>
- <select name="selectedmode">
-  <option value="singlemode">single unit</option>
-  <option value="tablemode">WIP table</option>
-</select> 
-</p>
-<p>Enter the following values.<br><br>
-<input type="radio" name="CombatType" value="Melee" checked> Melee Attack<br>
-<input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack<br>
-<input type="radio" name="CombatType" value="Air" > WIP Air Attack<br><br>
-your strength:<br>
-<input id="Strength" name="Strength" type="text" value="8"> <br>
-enemy's strength:<br>
-<input id="OpponentStrength" name="OpponentStrength" type="text" value="5"> <br>
-your HP:<br>
-<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br>
-<input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random<br>
+<section>
+<aside>
+	<p>select mode:<br>
+	<select name="selectedmode">
+ 		<option value="singlemode">single unit</option>
+ 		<option value="tablemode">WIP table</option>
+	</select> 
+	</p>
+	<input type="radio" name="CombatType" value="Melee" checked> Melee Attack<br>
+	<input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack<br>
+	<input type="radio" name="CombatType" value="Air" > WIP Air Attack<br><br>
+    <input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random<br>
 <input type="checkbox" id="AttackerIsCity" name="AttackerIsCity" value="AttackerIsCity"> Attacker is city<br>
 <input type="checkbox" id="DefenderIsCity" name="DefenderIsCity" value="DefenderIsCity"> Defender is city<br>
 <input type="checkbox" id="JAPAN_TRAIT" name="JAPAN_TRAIT" value="JAPAN_TRAIT"> Attacker is Japan<br>
 <input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy<br>
 
-<button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> <br>
+</aside>
+  
+  <article>
+    <h1>Enter the following values.</h1>
+    your strength:<br>
+<input id="Strength" name="Strength" type="text" value="8"> <br>
+enemy's strength:<br>
+<input id="OpponentStrength" name="OpponentStrength" type="text" value="5"> <br>
+your HP:<br>
+<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br>
+    <button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> <br>
 
-Damage: <input type="text" id="DamageOutput" name="Damage">
-</p>
+
+  </article>
+</section>
+<footer>
+  <p>Damage: <input type="text" id="DamageOutput" name="Damage">
+  </p>
+</footer>
+
+
+
+
+
 
 <script>
 function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
