@@ -26,7 +26,6 @@ header {
 aside {
   float: left;
   width: 30%;
-  height: 350px; /* only for demonstration, should be removed */
   background: #ccc;
   padding: 20px;
 }
@@ -37,7 +36,6 @@ article {
   padding: 20px;
   width: 70%;
   background-color: #f1f1f1;
-  height: 3500x; /* only for demonstration, should be removed */
 }
 
 /* Clear floats after the columns */
@@ -54,16 +52,30 @@ footer {
   text-align: center;
   color: white;
 }
-
+label {
+    background:#ccc;
+    color:black;
+    border-radius:4px;   
+    padding:0.3em;
+    cursor:pointer;
+	}
+label:hover {
+    background:#aaa;   
+	}
+input {
+    margin-right:1em;   
+	}
 /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   aside, article {
     width: 100%;
     height: auto;
-  }
+	}
+  
 }
 </style>
 </head>
+
 <body>
 <header>
   <h2>Civ5 Damage Calculator</h2>
@@ -71,44 +83,38 @@ footer {
 
 <section>
 <aside>
-	<p>select mode:<br>
-	<select name="selectedmode">
+	<p>select mode:</p>
+	<p>
+    <select name="selectedmode">
  		<option value="singlemode">single unit</option>
  		<option value="tablemode">WIP table</option>
 	</select> 
 	</p>
-	<input type="radio" name="CombatType" value="Melee" checked> Melee Attack<br>
-	<input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack<br>
-	<input type="radio" name="CombatType" value="Air" > WIP Air Attack<br><br>
-    <input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random<br>
-<input type="checkbox" id="AttackerIsCity" name="AttackerIsCity" value="AttackerIsCity"> Attacker is city<br>
-<input type="checkbox" id="DefenderIsCity" name="DefenderIsCity" value="DefenderIsCity"> Defender is city<br>
-<input type="checkbox" id="JAPAN_TRAIT" name="JAPAN_TRAIT" value="JAPAN_TRAIT"> Attacker is Japan<br>
-<input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy<br>
-
+	<p><label><input type="radio" name="CombatType" value="Melee" checked> Melee Attack</label></p>
+	<p><label><input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack</label></p>
+	<p><label><input type="radio" name="CombatType" value="Air" > WIP Air Attack</label></p>
+    <p><label><input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random</label></p>
+	<p><label><input type="checkbox" id="AttackerIsCity" name="AttackerIsCity" value="AttackerIsCity"> Attacker is city</label></p>
+	<p><label><input type="checkbox" id="DefenderIsCity" name="DefenderIsCity" value="DefenderIsCity"> Defender is city</label></p>
+	<p><label><input type="checkbox" id="JAPAN_TRAIT" name="JAPAN_TRAIT" value="JAPAN_TRAIT"> Attacker is Japan</label></p>
+	<p><label><input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy</label></p>
 </aside>
   
-  <article>
+<article>
     <h1>Enter the following values.</h1>
-    your strength:<br>
-<input id="Strength" name="Strength" type="text" value="8"> <br>
+    <p>your strength:<br>
+	<input id="Strength" name="Strength" type="text" value="8"> <br>
 enemy's strength:<br>
-<input id="OpponentStrength" name="OpponentStrength" type="text" value="5"> <br>
+	<input id="OpponentStrength" name="OpponentStrength" type="text" value="5"> <br>
 your HP:<br>
-<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br>
-    <button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> <br>
-
-
-  </article>
+	<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br><br>
+    <button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> </p>
+</article>
 </section>
+
 <footer>
-  <p>Damage: <input type="text" id="DamageOutput" name="Damage">
-  </p>
+  <p>Damage: <input type="text" id="DamageOutput" name="Damage"></p>
 </footer>
-
-
-
-
 
 
 <script>
@@ -121,41 +127,35 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
     iOpponentStrength = Math.floor(iOpponentStrength*100);
     iCurrentHP = Math.floor(iCurrentHP);
     //////////////////////////////////////////
-	if(bAttackerIsCity)
-		{
-			iDamageRatio = 100;		// JON: Cities don't do less damage when wounded
+	if(bAttackerIsCity) {
+			iDamageRatio = 100;	// JON: Cities don't do less damage when wounded
 		}
 		else
 		{
 			// Mod (Policies, etc.)
 			if (bJAPAN_TRAIT) iWoundedDamageMultiplier += -33
         	else if (bELITE_FORCES_POLICY) 	iWoundedDamageMultiplier += -25;
-	
 			iDamageRatio = 100 - Math.floor(iCurrentDamage * iWoundedDamageMultiplier / 100);
 		}
-        
     var iDamage = 0;
-
 	iDamage = 24 * iDamageRatio;
-
 	// Don't use rand when calculating projected combat results
 	var iRoll = 0;
 	if(bIncludeRand)
-		{
-			iRoll = Math.floor((Math.random() * 1200));
-			iRoll *= iDamageRatio;
-			iRoll = Math.floor(iRoll / 100);
-		} 
-        else
-		{
-			iRoll = 1200;
-			iRoll -= 1;	// Subtract 1 here, because this is the amount normally "lost" when doing a rand roll
-			iRoll *= iDamageRatio;
-			iRoll = Math.floor(iRoll / 100);
-			iRoll = Math.floor(iRoll / 2);	// The divide by 2 is to provide the average damage
-		}
-	iDamage += iRoll;
-    
+	{
+		iRoll = Math.floor((Math.random() * 1200));
+		iRoll *= iDamageRatio;
+		iRoll = Math.floor(iRoll / 100);
+	} 
+    else
+	{
+		iRoll = 1200;
+		iRoll -= 1;	// Subtract 1 here, because this is the amount normally "lost" when doing a rand roll
+		iRoll *= iDamageRatio;
+		iRoll = Math.floor(iRoll / 100);
+		iRoll = Math.floor(iRoll / 2);	// The divide by 2 is to provide the average damage
+	}
+	iDamage += iRoll; 
     var fStrengthRatio = iStrength / iOpponentStrength;
 
 	// In case our strength is less than the other guy's, we'll do things in reverse then make the ratio 1 over the result (we need a # above 1.0)
@@ -163,7 +163,7 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 	{
 		fStrengthRatio = iOpponentStrength / iStrength;
 	}
-
+    
 	fStrengthRatio = (fStrengthRatio + 3) / 4;
 	fStrengthRatio = Math.pow(fStrengthRatio, 4.0);
 	fStrengthRatio = (fStrengthRatio + 1) / 2;
@@ -192,8 +192,7 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 	// Bring it back out of hundreds
 	iDamage = Math.floor(iDamage / 100);
     
-	if (iDamage < 1) 
-    	iDamage = 1;
+	if (iDamage < 1) iDamage = 1;
     document.getElementById('DamageOutput').value = iDamage;
 	return iDamage;
 	}
