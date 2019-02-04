@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,10 +51,42 @@ section:after {
   display: table;
   clear: both;
 }
+/* Style the link */
+summary {
+	position:relative;
+    bottom: 0px;
+    text-align: right;
+    padding-right: 10px;
+    display:block;
+    background-color: #777;
+    top:0px;
+    right:0px;
+    }
+a:link {
+  color: #ddd;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: #999;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
 
 /* Style the footer */
 footer {
-  
+  position:relative;
+  bottom:0px;
   background-color: #777;
   padding: 10px;
   text-align: center;
@@ -85,6 +120,7 @@ input {
 <header>
   <h2>Civ5 Damage Calculator</h2>
 </header>
+
 
 
 <section>
@@ -125,7 +161,9 @@ your HP:<br>
 <footer>
   <p>Damage: <input type="text" id="DamageOutput" name="Damage"></p>
 </footer>
-
+<summary>
+<a href="https://www.twitch.tv/catscatsforever" target="_blank">Contact Me</a>
+</summary>
 
 <script>
 function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
