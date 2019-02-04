@@ -11,6 +11,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #f1f1f1;
 }
 
 /* Style the header */
@@ -28,6 +29,8 @@ aside {
   width: 30%;
   background: #ccc;
   padding: 20px;
+  
+  
 }
 
 
@@ -36,6 +39,7 @@ article {
   padding: 20px;
   width: 70%;
   background-color: #f1f1f1;
+  
 }
 
 /* Clear floats after the columns */
@@ -47,6 +51,7 @@ section:after {
 
 /* Style the footer */
 footer {
+  
   background-color: #777;
   padding: 10px;
   text-align: center;
@@ -81,11 +86,12 @@ input {
   <h2>Civ5 Damage Calculator</h2>
 </header>
 
+
 <section>
 <aside>
 	<p>select mode:</p>
 	<p>
-    <select name="selectedmode">
+    <select id="SelectMode" name="selectedmode">
  		<option value="singlemode">single unit</option>
  		<option value="tablemode">WIP table</option>
 	</select> 
@@ -100,7 +106,7 @@ input {
 	<p><label><input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy</label></p>
 </aside>
   
-<article>
+<article> <div id="SingleModePanel">
     <h1>Enter the following values.</h1>
     <p>your strength:<br>
 	<input id="Strength" name="Strength" type="text" value="8"> <br>
@@ -109,6 +115,10 @@ enemy's strength:<br>
 your HP:<br>
 	<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br><br>
     <button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> </p>
+    </div>
+    <div id="TableModePanel" style="display:none">
+    <h1>Work in Progress</h1>
+    </div>
 </article>
 </section>
 
@@ -196,6 +206,21 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
     document.getElementById('DamageOutput').value = iDamage;
 	return iDamage;
 	}
+    
+    // Function to add event listener to table
+	var el = document.getElementById("SelectMode");
+    
+	el.addEventListener("change", function() {
+  	var elems = document.querySelectorAll('#SingleModePanel,#TableModePanel')
+  	for (var i = 0; i < elems.length; i++) {
+		elems[i].style.display = 'none'
+	}
+  	if (this.selectedIndex === 0) {
+    	document.querySelector('#SingleModePanel').style.display = 'block';
+  	} else if (this.selectedIndex === 1) {
+    	document.querySelector('#TableModePanel').style.display = 'block';
+ 	}
+    }, false);
 </script>
 
 </body>
