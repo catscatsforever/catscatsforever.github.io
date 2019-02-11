@@ -159,7 +159,10 @@ your HP:<br>
 </section>
 
 <footer>
-  <p>Damage: <input type="text" id="DamageOutput" name="Damage"></p>
+	<p>Damage: <input type="text" id="DamageOutput" name="Damage"></p>
+	<p>Min Damage: <input type="text" id="TB_MinDamage" name="MinDamage"></p>  
+	<p>Max Damage: <input type="text" id="TB_MaxDamage" name="MaxDamage"></p> 
+	<textarea name="message" id="textarea" rows="10" cols="30"></textarea> 
 </footer>
 <summary>
 <a href="https://www.twitch.tv/catscatsforever" target="_blank">Contact Me</a>
@@ -187,6 +190,8 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 		}
     var iDamage = 0;
 	iDamage = 24 * iDamageRatio;
+    var iMinDamage = iDamage;
+    var iMaxDamage = iDamage + Math.floor(1199 * iDamageRatio / 100);
 	// Don't use rand when calculating projected combat results
 	var iRoll = 0;
 	if(bIncludeRand)
@@ -194,6 +199,7 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 		iRoll = Math.floor((Math.random() * 1200));
 		iRoll *= iDamageRatio;
 		iRoll = Math.floor(iRoll / 100);
+        
 	} 
     else
 	{
@@ -220,8 +226,11 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 	{
 		fStrengthRatio = 1 / fStrengthRatio;
 	}
-
+	GetDamageStat(iDamageRatio, fStrengthRatio);
+    
 	iDamage = Math.floor(iDamage * fStrengthRatio);
+    iMinDamage = Math.floor(iMinDamage * fStrengthRatio);
+    iMaxDamage = Math.floor(iMaxDamage * fStrengthRatio);
 // Modify damage for when a city "attacks" a unit
 	/*
     if(bAttackerIsCity)
@@ -239,9 +248,13 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 	*/
 	// Bring it back out of hundreds
 	iDamage = Math.floor(iDamage / 100);
+    iMinDamage = Math.floor(iMinDamage / 100);
+    iMaxDamage = Math.floor(iMaxDamage / 100);
     
 	if (iDamage < 1) iDamage = 1;
     document.getElementById('DamageOutput').value = iDamage;
+    document.getElementById('TB_MinDamage').value = iMinDamage;
+    document.getElementById('TB_MaxDamage').value = iMaxDamage;
 	return iDamage;
 	}
     
@@ -259,6 +272,49 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
     	document.querySelector('#TableModePanel').style.display = 'block';
  	}
     }, false);
+    
+    function GetDamageStat(iDamageRatio, fStrengthRatio) {
+    	var RollsPerDP = [];
+        var DamageValuePerDP = [];
+        var j = 0;
+        var bFlag = 0;
+        for (var i = 0; i < 1200; i++) {
+        	bFlag = 0;
+			j = -1;
+            do {
+            	j++;
+        		if (GetQuickDamage(iDamageRatio, fStrengthRatio, i) == DamageValuePerDP[j]) {
+                	RollsPerDP[j]++;
+                    bFlag = 1;
+                    break;
+                }
+               
+            } while (j < RollsPerDP.length);
+        	if (bFlag === 0) {
+                RollsPerDP[RollsPerDP.length] = 1;
+                DamageValuePerDP[RollsPerDP.length - 1] = GetQuickDamage(iDamageRatio, fStrengthRatio, i);            	
+        	}
+        
+        }
+        document.getElementById('textarea').value = "";
+        for (var i = 0; i < RollsPerDP.length; i++) {
+        	document.getElementById('textarea').value += i + 1;
+            document.getElementById('textarea').value += ": Damage: ";
+            document.getElementById('textarea').value += DamageValuePerDP[i];       	
+            document.getElementById('textarea').value += " Rolls: ";
+            document.getElementById('textarea').value += RollsPerDP[i];
+             document.getElementById('textarea').value += " Probability: ";
+              document.getElementById('textarea').value += (RollsPerDP[i] / 12).toFixed(2);
+            document.getElementById('textarea').value += "% \n";
+        }
+    	return 1;
+    }
+    
+    function GetQuickDamage(iDamageRatio, fStrengthRatio, iRoll) {
+    	var iDamage = (24 * iDamageRatio) + Math.floor(iRoll * iDamageRatio / 100);
+    	iDamage = Math.floor(iDamage * fStrengthRatio / 100);
+    	return iDamage;
+    }
 </script>
 
 </body>
