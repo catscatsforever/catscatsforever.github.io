@@ -159,7 +159,7 @@ your HP:<br>
 </section>
 
 <footer>
-	<p>Damage: <input type="text" id="DamageOutput" name="Damage"></p>
+	<p>Expected Damage: <input type="text" id="DamageOutput" name="Damage"></p>
 	<p>Min Damage: <input type="text" id="TB_MinDamage" name="MinDamage"></p>  
 	<p>Max Damage: <input type="text" id="TB_MaxDamage" name="MaxDamage"></p> 
 	<textarea name="message" id="textarea" rows="10" cols="30"></textarea> 
@@ -169,6 +169,7 @@ your HP:<br>
 </summary>
 
 <script>
+//function imported from the game and transcripted from c++
 function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 	var iDamageRatio;
 	var iWoundedDamageMultiplier = 33;
@@ -272,7 +273,7 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
     	document.querySelector('#TableModePanel').style.display = 'block';
  	}
     }, false);
-    
+    //statistics processing
     function GetDamageStat(iDamageRatio, fStrengthRatio) {
     	var RollsPerDP = [];
         var DamageValuePerDP = [];
