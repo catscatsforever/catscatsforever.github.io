@@ -314,6 +314,7 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
     function GetQuickDamage(iDamageRatio, fStrengthRatio, iRoll) {
     	var iDamage = (24 * iDamageRatio) + Math.floor(iRoll * iDamageRatio / 100);
     	iDamage = Math.floor(iDamage * fStrengthRatio / 100);
+	if (iDamage < 1) iDamage = 1;
     	return iDamage;
     }
 </script>
