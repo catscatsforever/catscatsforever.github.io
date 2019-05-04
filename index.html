@@ -1,239 +1,301 @@
-
-
-
 <!DOCTYPE html>
+
+
 <html>
-<head>
-<title>Civ5 Damage Calculator</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,  height=device-height, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f1f1f1;
-}
+  <head>
+    <title>Civ5 Damage Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,  height=device-height, initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-/* Style the header */
-header {
-  background-color: #666;
-  padding: 30px;
-  text-align: center;
-  font-size: 25px;
-  color: white;
-}
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f1f1f1;
+      }
 
-/* Create two columns/boxes that floats next to each other */
-aside {
-  float: left;
-  width: 30%;
-  background: #ccc;
-  padding: 20px;
-  
-  
-}
+      /* Style the header */
+
+      header {
+        background-color: #666;
+        padding: 30px;
+        text-align: center;
+        font-size: 25px;
+        color: white;
+      }
+
+      /* Create two columns/boxes that floats next to each other */
+
+      aside {
+        float: left;
+        width: 30%;
+        background: #ccc;
+        padding: 20px;
+      }
+
+      article {
+        float: left;
+        padding: 20px;
+        width: 70%;
+        background-color: #f1f1f1;
+      }
+
+      /* Clear floats after the columns */
+
+      section:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Style the link */
+
+      summary {
+        position: relative;
+        bottom: 0px;
+        text-align: right;
+        padding-right: 10px;
+        display: block;
+        background-color: #777;
+        top: 0px;
+        right: 0px;
+      }
+
+      a:link {
+        color: #ddd;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      a:visited {
+        color: #999;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: white;
+        background-color: transparent;
+        text-decoration: underline;
+      }
+
+      a:active {
+        color: white;
+        background-color: transparent;
+        text-decoration: underline;
+      }
+
+      /* Style the footer */
+
+      footer {
+        position: relative;
+        bottom: 0px;
+        background-color: #777;
+        padding: 10px;
+        text-align: center;
+        color: white;
+      }
+
+      label {
+        background: #ccc;
+        color: black;
+        border-radius: 4px;
+        padding: 0.3em;
+        cursor: pointer;
+      }
+
+      label:hover {
+        background: #aaa;
+      }
+
+      input {
+        margin-right: 1em;
+      }
+
+      /* div columns */
+
+      .column {
+        float: left;
+        padding-left: 50px;
+        width: 50%;
+        padding: 10px;
+      }
+
+      /* Clear floats after the columns */
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+
+      @media (max-width: 700px) {
+        aside,
+        article,
+        .column
+        {
+          width: 100%;
+          height: auto;
+        }
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h2>Civ5 Damage Calculator</h2>
+    </header>
 
 
-article {
-  float: left;
-  padding: 20px;
-  width: 70%;
-  background-color: #f1f1f1;
-  
-}
 
-/* Clear floats after the columns */
-section:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* Style the link */
-summary {
-	position:relative;
-    bottom: 0px;
-    text-align: right;
-    padding-right: 10px;
-    display:block;
-    background-color: #777;
-    top:0px;
-    right:0px;
-    }
-a:link {
-  color: #ddd;
-  background-color: transparent;
-  text-decoration: none;
-}
-a:visited {
-  color: #999;
-  background-color: transparent;
-  text-decoration: none;
-}
-a:hover {
-  color: white;
-  background-color: transparent;
-  text-decoration: underline;
-}
-a:active {
-  color: white;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-/* Style the footer */
-footer {
-  position:relative;
-  bottom:0px;
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-label {
-    background:#ccc;
-    color:black;
-    border-radius:4px;   
-    padding:0.3em;
-    cursor:pointer;
-	}
-label:hover {
-    background:#aaa;   
-	}
-input {
-    margin-right:1em;   
-	}
-/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-@media (max-width: 700px) {
-  aside, article {
-    width: 100%;
-    height: auto;
-	}
-  
-}
-</style>
-</head>
-
-<body>
-<header>
-  <h2>Civ5 Damage Calculator</h2>
-</header>
-
-
-
-<section>
-<aside>
-	<p style="margin-left: 20px">select mode:</p>
-	<p>
-    <select style="margin-left: 20px; width: 130px" id="SelectMode" name="selectedmode">
+    <section>
+      <aside>
+        <p style="margin-left: 20px">select mode:</p>
+        <p>
+          <select style="margin-left: 20px; width: 130px" id="SelectMode" name="selectedmode">
  		<option value="singlemode">single unit</option>
- 		<option value="tablemode">WIP table</option>
-	</select> 
-	</p>
-	<p><label><input type="radio" name="CombatType" value="Melee" checked> Melee Attack</label></p>
-	<p><label><input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack</label></p>
-	<p><label><input type="radio" name="CombatType" value="Air" > WIP Air Attack</label></p>
-    <p><label><input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random</label></p>
-	<p><label><input type="checkbox" id="AttackerIsCity" name="AttackerIsCity" value="AttackerIsCity"> Attacker is city</label></p>
-	<p><label><input type="checkbox" id="DefenderIsCity" name="DefenderIsCity" value="DefenderIsCity"> Defender is city</label></p>
-	<p><label><input type="checkbox" id="JAPAN_TRAIT" name="JAPAN_TRAIT" value="JAPAN_TRAIT"> Attacker is Japan</label></p>
-	<p><label><input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy</label></p>
-</aside>
-  
-<article> <div id="SingleModePanel">
-    <h1>Enter the following values.</h1>
-    <p>your strength:<br>
-	<input id="Strength" name="Strength" type="text" value="8"> <br>
-enemy's strength:<br>
-	<input id="OpponentStrength" name="OpponentStrength" type="text" value="5"> <br>
-your HP:<br>
-	<input id="CurrentHP" name="CurrentHP" type="text" value="100"> <br><br>
-    <button type="button" onclick="getCombatDamage(Strength.value, OpponentStrength.value, CurrentHP.value)">Proceed!</button> </p>
-    </div>
-    <div id="TableModePanel" style="display:none">
-    <h1>Work in Progress</h1>
-    </div>
-</article>
-</section>
+    <option value="tablemode">WIP table</option>
+	</select>
+        </p>
+        <p><label><input type="radio" name="CombatType" value="Melee" checked> Melee Attack</label></p>
+        <p><label><input type="radio" name="CombatType" value="Ranged"> WIP Ranged Attack</label></p>
+        <p><label><input type="radio" name="CombatType" value="Air" > WIP Air Attack</label></p>
+        <p><label><input type="checkbox" id="IncludeRand" name="IncludeRand" value="IncludeRand"> Include random</label></p>
+        <p><label><input type="checkbox" id="AttackerIsCity" name="AttackerIsCity" value="AttackerIsCity"> Attacker is city</label></p>
+        <p><label><input type="checkbox" id="DefenderIsCity" name="DefenderIsCity" value="DefenderIsCity"> Defender is city</label></p>
+        <p><label><input type="checkbox" id="JAPAN_TRAIT" name="JAPAN_TRAIT" value="JAPAN_TRAIT"> Attacker is Japan</label></p>
+        <p><label><input type="checkbox" id="ELITE_FORCES_POLICY" name="ELITE_FORCES_POLICY" value="ELITE_FORCES_POLICY"> Attacker has "Elite Forces" policy</label></p>
+      </aside>
 
-<footer>
-	<p>Expected Damage: <input type="text" id="DamageOutput" name="Damage"></p>
-	<p>Min Damage: <input type="text" id="TB_MinDamage" name="MinDamage"></p>  
-	<p>Max Damage: <input type="text" id="TB_MaxDamage" name="MaxDamage"></p> 
-	<textarea name="message" id="textarea" rows="10" cols="30"></textarea> 
-</footer>
-<summary>
-<a href="https://www.twitch.tv/catscatsforever" target="_blank">Contact Me</a>
-</summary>
+      <article>
+        <div id="SingleModePanel">
+          <h1>Enter the following values.</h1>
+          <p>
+            your strength:<br>
+            <input id="Strength" name="Strength" type="text" value="8"><br> enemy's strength:<br>
+            <input id="OpponentStrength" name="OpponentStrength" type="text" value="5"><br> your HP:<br>
+            <input id="CurrentHP" name="CurrentHP" type="text" value="100"><br> enemy's HP:<br>
+            <input id="OpponentHP" name="OpponentHP" type="text" value="100"><br><br>
+            <button type="button" onclick="PrintResults()">Proceed!</button> </p>
 
-<script>
-//function imported from the game and transcripted from c++
-function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
-	var iDamageRatio;
-	var iWoundedDamageMultiplier = 33;
-	var iCurrentDamage = 100 - iCurrentHP;
-    var bIncludeRand = (document.getElementById('IncludeRand').checked), bAttackerIsCity = (document.getElementById('AttackerIsCity').checked), bDefenderIsCity = (document.getElementById('DefenderIsCity').checked), bJAPAN_TRAIT = (document.getElementById('JAPAN_TRAIT').checked), bELITE_FORCES_POLICY = (document.getElementById('ELITE_FORCES_POLICY').checked);
-    iStrength = Math.floor(iStrength*100);
-    iOpponentStrength = Math.floor(iOpponentStrength*100);
-    iCurrentHP = Math.floor(iCurrentHP);
-    //////////////////////////////////////////
-	if(bAttackerIsCity) {
-			iDamageRatio = 100;	// JON: Cities don't do less damage when wounded
-		}
-		else
-		{
-			// Mod (Policies, etc.)
-			if (bJAPAN_TRAIT) iWoundedDamageMultiplier += -33
-        	else if (bELITE_FORCES_POLICY) 	iWoundedDamageMultiplier += -25;
-			iDamageRatio = 100 - Math.floor(iCurrentDamage * iWoundedDamageMultiplier / 100);
-		}
-    var iDamage = 0;
-	iDamage = 24 * iDamageRatio;
-    var iMinDamage = iDamage;
-    var iMaxDamage = iDamage + Math.floor(1199 * iDamageRatio / 100);
-	// Don't use rand when calculating projected combat results
-	var iRoll = 0;
-	if(bIncludeRand)
-	{
-		iRoll = Math.floor((Math.random() * 1200));
-		iRoll *= iDamageRatio;
-		iRoll = Math.floor(iRoll / 100);
-        
-	} 
-    else
-	{
-		iRoll = 1200;
-		iRoll -= 1;	// Subtract 1 here, because this is the amount normally "lost" when doing a rand roll
-		iRoll *= iDamageRatio;
-		iRoll = Math.floor(iRoll / 100);
-		iRoll = Math.floor(iRoll / 2);	// The divide by 2 is to provide the average damage
-	}
-	iDamage += iRoll; 
-    var fStrengthRatio = iStrength / iOpponentStrength;
 
-	// In case our strength is less than the other guy's, we'll do things in reverse then make the ratio 1 over the result (we need a # above 1.0)
-	if(iOpponentStrength > iStrength)
-	{
-		fStrengthRatio = iOpponentStrength / iStrength;
-	}
+        </div>
+        <div id="TableModePanel" style="display:none">
+          <h1>Work in Progress</h1>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+
+      <div class="row">
+        <div class="column">
+          <h2>You</h2>
+          <p>Expected Damage: <input type="text" id="DamageOutput" name="Damage"></p>
+          <p>Min Damage: <input type="text" id="TB_MinDamage" name="MinDamage"></p>
+          <p>Max Damage: <input type="text" id="TB_MaxDamage" name="MaxDamage"></p>
+          <p>Kill Chance: <input type="text" id="TB_KillChance" name="KillChance"></p>
+          <textarea name="message" id="textarea" rows="10" cols="30"></textarea>
+        </div>
+        <div class="column">
+          <h2>Enemy</h2>
+          <p>Expected Damage: <input type="text" id="DamageOutput2" name="Damage2"></p>
+          <p>Min Damage: <input type="text" id="TB_MinDamage2" name="MinDamage2"></p>
+          <p>Max Damage: <input type="text" id="TB_MaxDamage2" name="MaxDamage2"></p>
+          <p>Kill Chance: <input type="text" id="TB_KillChance2" name="KillChance2"></p>
+          <textarea name="message" id="textarea2" rows="10" cols="30"></textarea>
+        </div>
+      </div>
+    </footer>
+    <summary>
+      <a href="https://www.twitch.tv/catscatsforever" target="_blank">Contact Me</a>
+    </summary>
+
+    <script>
     
-	fStrengthRatio = (fStrengthRatio + 3) / 4;
-	fStrengthRatio = Math.pow(fStrengthRatio, 4.0);
-	fStrengthRatio = (fStrengthRatio + 1) / 2;
+     function PrintResults() {
+        getCombatDamage(
+          document.getElementById('Strength').value,
+          document.getElementById('OpponentStrength').value,
+          document.getElementById('CurrentHP').value,
+          false);
+        getCombatDamage(
+          document.getElementById('OpponentStrength').value,
+          document.getElementById('Strength').value,
+          document.getElementById('OpponentHP').value,
+          true);
+        return 1;
+      }
 
-	if(iOpponentStrength > iStrength)
-	{
-		fStrengthRatio = 1 / fStrengthRatio;
-	}
-	GetDamageStat(iDamageRatio, fStrengthRatio);
     
-	iDamage = Math.floor(iDamage * fStrengthRatio);
-    iMinDamage = Math.floor(iMinDamage * fStrengthRatio);
-    iMaxDamage = Math.floor(iMaxDamage * fStrengthRatio);
-// Modify damage for when a city "attacks" a unit
-	/*
+      //function imported from the game and transcripted from c++
+      function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP, bCounterAttack) {
+        var iDamageRatio;
+        var iWoundedDamageMultiplier = 33;
+        var iCurrentDamage = 100 - iCurrentHP;
+        var bIncludeRand = (document.getElementById('IncludeRand').checked),
+          bAttackerIsCity = (document.getElementById('AttackerIsCity').checked),
+          bDefenderIsCity = (document.getElementById('DefenderIsCity').checked),
+          bJAPAN_TRAIT = (document.getElementById('JAPAN_TRAIT').checked),
+          bELITE_FORCES_POLICY = (document.getElementById('ELITE_FORCES_POLICY').checked);
+        iStrength = Math.floor(iStrength * 100);
+        iOpponentStrength = Math.floor(iOpponentStrength * 100);
+        iCurrentHP = Math.floor(iCurrentHP);
+        //////////////////////////////////////////
+        if (bAttackerIsCity) {
+          iDamageRatio = 100; // JON: Cities don't do less damage when wounded
+        } else {
+          // Mod (Policies, etc.)
+          if (bJAPAN_TRAIT) iWoundedDamageMultiplier += -33
+          else if (bELITE_FORCES_POLICY) iWoundedDamageMultiplier += -25;
+          iDamageRatio = 100 - Math.floor(iCurrentDamage * iWoundedDamageMultiplier / 100);
+        }
+        var iDamage = 0;
+        iDamage = 24 * iDamageRatio;
+        var iMinDamage = iDamage;
+        var iMaxDamage = iDamage + Math.floor(1199 * iDamageRatio / 100);
+        // Don't use rand when calculating projected combat results
+        var iRoll = 0;
+        if (bIncludeRand) {
+          iRoll = Math.floor((Math.random() * 1200));
+          iRoll *= iDamageRatio;
+          iRoll = Math.floor(iRoll / 100);
+
+        } else {
+          iRoll = 1200;
+          iRoll -= 1; // Subtract 1 here, because this is the amount normally "lost" when doing a rand roll
+          iRoll *= iDamageRatio;
+          iRoll = Math.floor(iRoll / 100);
+          iRoll = Math.floor(iRoll / 2); // The divide by 2 is to provide the average damage
+        }
+        iDamage += iRoll;
+        var fStrengthRatio = iStrength / iOpponentStrength;
+
+        // In case our strength is less than the other guy's, we'll do things in reverse then make the ratio 1 over the result (we need a # above 1.0)
+        if (iOpponentStrength > iStrength) {
+          fStrengthRatio = iOpponentStrength / iStrength;
+        }
+
+        fStrengthRatio = (fStrengthRatio + 3) / 4;
+        fStrengthRatio = Math.pow(fStrengthRatio, 4.0);
+        fStrengthRatio = (fStrengthRatio + 1) / 2;
+
+        if (iOpponentStrength > iStrength) {
+          fStrengthRatio = 1 / fStrengthRatio;
+        }
+        GetDamageStat(iDamageRatio, fStrengthRatio, bCounterAttack);
+
+        iDamage = Math.floor(iDamage * fStrengthRatio);
+        iMinDamage = Math.floor(iMinDamage * fStrengthRatio);
+        iMaxDamage = Math.floor(iMaxDamage * fStrengthRatio);
+        // Modify damage for when a city "attacks" a unit
+        /*
     if(bAttackerIsCity)
 	{
 		iDamage *= 100;
@@ -247,77 +309,124 @@ function getCombatDamage(iStrength, iOpponentStrength, iCurrentHP) {
 		iDamage /= 100;
 	}
 	*/
-	// Bring it back out of hundreds
-	iDamage = Math.floor(iDamage / 100);
-    iMinDamage = Math.floor(iMinDamage / 100);
-    iMaxDamage = Math.floor(iMaxDamage / 100);
-    
-	if (iDamage < 1) iDamage = 1;
-    document.getElementById('DamageOutput').value = iDamage;
-    document.getElementById('TB_MinDamage').value = iMinDamage;
-    document.getElementById('TB_MaxDamage').value = iMaxDamage;
-	return iDamage;
-	}
-    
-    // Function to add event listener to table
-	var el = document.getElementById("SelectMode");
-    
-	el.addEventListener("change", function() {
-  	var elems = document.querySelectorAll('#SingleModePanel,#TableModePanel')
-  	for (var i = 0; i < elems.length; i++) {
-		elems[i].style.display = 'none'
-	}
-  	if (this.selectedIndex === 0) {
-    	document.querySelector('#SingleModePanel').style.display = 'block';
-  	} else if (this.selectedIndex === 1) {
-    	document.querySelector('#TableModePanel').style.display = 'block';
- 	}
-    }, false);
-    //statistics processing
-    function GetDamageStat(iDamageRatio, fStrengthRatio) {
-    	var RollsPerDP = [];
+        // Bring it back out of hundreds
+        iDamage = Math.floor(iDamage / 100);
+        iMinDamage = Math.floor(iMinDamage / 100);
+        iMaxDamage = Math.floor(iMaxDamage / 100);
+
+        if (iDamage < 1) iDamage = 1;
+        if (!bCounterAttack) {
+          document.getElementById('DamageOutput').value = iDamage;
+          document.getElementById('TB_MinDamage').value = iMinDamage;
+          document.getElementById('TB_MaxDamage').value = iMaxDamage;
+        } else {
+          document.getElementById('DamageOutput2').value = iDamage;
+          document.getElementById('TB_MinDamage2').value = iMinDamage;
+          document.getElementById('TB_MaxDamage2').value = iMaxDamage;
+        }
+        return iDamage;
+      }
+
+     
+      // Function to add event listener to table
+      var el = document.getElementById("SelectMode");
+
+      el.addEventListener("change", function() {
+        var elems = document.querySelectorAll('#SingleModePanel,#TableModePanel')
+        for (var i = 0; i < elems.length; i++) {
+          elems[i].style.display = 'none'
+        }
+        if (this.selectedIndex === 0) {
+          document.querySelector('#SingleModePanel').style.display = 'block';
+        } else if (this.selectedIndex === 1) {
+          document.querySelector('#TableModePanel').style.display = 'block';
+        }
+      }, false);
+      
+      //statistics processing
+      function GetDamageStat(iDamageRatio, fStrengthRatio, bCounterAttack) {
+        var RollsPerDP = [];
         var DamageValuePerDP = [];
         var j = 0;
         var bFlag = 0;
         for (var i = 0; i < 1200; i++) {
-        	bFlag = 0;
-			j = -1;
-            do {
-            	j++;
-        		if (GetQuickDamage(iDamageRatio, fStrengthRatio, i) == DamageValuePerDP[j]) {
-                	RollsPerDP[j]++;
-                    bFlag = 1;
-                    break;
-                }
-               
-            } while (j < RollsPerDP.length);
-        	if (bFlag === 0) {
-                RollsPerDP[RollsPerDP.length] = 1;
-                DamageValuePerDP[RollsPerDP.length - 1] = GetQuickDamage(iDamageRatio, fStrengthRatio, i);            	
-        	}
-        
+          bFlag = 0;
+          j = -1;
+          do {
+            j++;
+            if (GetQuickDamage(iDamageRatio, fStrengthRatio, i) == DamageValuePerDP[j]) {
+              RollsPerDP[j]++;
+              bFlag = 1;
+              break;
+            }
+
+          } while (j < RollsPerDP.length);
+          if (bFlag === 0) {
+            RollsPerDP[RollsPerDP.length] = 1;
+            DamageValuePerDP[RollsPerDP.length - 1] = GetQuickDamage(iDamageRatio, fStrengthRatio, i);
+          }
+
         }
-        document.getElementById('textarea').value = "";
-        for (var i = 0; i < RollsPerDP.length; i++) {
-        	document.getElementById('textarea').value += i + 1;
+        
+        var KillRolls = 0;
+        var KillChance = 0;
+        if (!bCounterAttack) {
+          document.getElementById('textarea').value = "";
+          for (var i = 0; i < RollsPerDP.length; i++) {
+            document.getElementById('textarea').value += i + 1;
             document.getElementById('textarea').value += ": Damage: ";
-            document.getElementById('textarea').value += DamageValuePerDP[i];       	
+            document.getElementById('textarea').value += DamageValuePerDP[i];
             document.getElementById('textarea').value += " Rolls: ";
             document.getElementById('textarea').value += RollsPerDP[i];
-             document.getElementById('textarea').value += " Probability: ";
-              document.getElementById('textarea').value += (RollsPerDP[i] / 12).toFixed(2);
+            document.getElementById('textarea').value += " Probability: ";
+            document.getElementById('textarea').value += (RollsPerDP[i] / 12).toFixed(2);
             document.getElementById('textarea').value += "% \n";
-        }
-    	return 1;
-    }
-    
-    function GetQuickDamage(iDamageRatio, fStrengthRatio, iRoll) {
-    	var iDamage = (24 * iDamageRatio) + Math.floor(iRoll * iDamageRatio / 100);
-    	iDamage = Math.floor(iDamage * fStrengthRatio / 100);
-	if (iDamage < 1) iDamage = 1;
-    	return iDamage;
-    }
-</script>
+            
+            /////////////////
+            if (DamageValuePerDP[i] >= document.getElementById('OpponentHP').value) {
+            	KillRolls += RollsPerDP[i];
+            }
+            KillChance = KillRolls / 12;
+             if (KillChance) {
+            	 document.getElementById('TB_KillChance').value = KillChance.toFixed(2);
+               document.getElementById('TB_KillChance').value += "%";
+             } else document.getElementById('TB_KillChance').value = "0";
+          }
+          } else {
+          	document.getElementById('textarea2').value = "";
+            for (var i = 0; i < RollsPerDP.length; i++) {
+              document.getElementById('textarea2').value += i + 1;
+              document.getElementById('textarea2').value += ": Damage: ";
+              document.getElementById('textarea2').value += DamageValuePerDP[i];
+              document.getElementById('textarea2').value += " Rolls: ";
+              document.getElementById('textarea2').value += RollsPerDP[i];
+              document.getElementById('textarea2').value += " Probability: ";
+              document.getElementById('textarea2').value += (RollsPerDP[i] / 12).toFixed(2);
+              document.getElementById('textarea2').value += "% \n";
+              
+              /////////////////
+              if (DamageValuePerDP[i] >= document.getElementById('CurrentHP').value) {
+                KillRolls += RollsPerDP[i];
+              }
+            }
+            KillChance = KillRolls / 12;
+             if (KillChance) {
+            	 document.getElementById('TB_KillChance2').value = KillChance.toFixed(2);
+               document.getElementById('TB_KillChance2').value += "%";
+             } else document.getElementById('TB_KillChance2').value = "0";
+          }
+        return 1;
+      }
 
-</body>
+      function GetQuickDamage(iDamageRatio, fStrengthRatio, iRoll) {
+        var iDamage = (24 * iDamageRatio) + Math.floor(iRoll * iDamageRatio / 100);
+        iDamage = Math.floor(iDamage * fStrengthRatio / 100);
+        if (iDamage < 1) iDamage = 1;
+        return iDamage;
+      }
+
+    </script>
+
+  </body>
+
 </html>
